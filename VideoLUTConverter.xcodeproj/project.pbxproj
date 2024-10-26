@@ -1,0 +1,554 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		7DD59A1F2CCC77770078B720 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7DD59A052CCC77760078B720 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DD59A0C2CCC77760078B720;
+			remoteInfo = VideoLUTConverter;
+		};
+		7DD59A292CCC77780078B720 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7DD59A052CCC77760078B720 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DD59A0C2CCC77760078B720;
+			remoteInfo = VideoLUTConverter;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		7DD59A0D2CCC77760078B720 /* VideoLUTConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoLUTConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DD59A1E2CCC77770078B720 /* VideoLUTConverterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VideoLUTConverterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DD59A282CCC77780078B720 /* VideoLUTConverterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VideoLUTConverterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		7DD59A0F2CCC77760078B720 /* VideoLUTConverter */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = VideoLUTConverter;
+			sourceTree = "<group>";
+		};
+		7DD59A212CCC77770078B720 /* VideoLUTConverterTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = VideoLUTConverterTests;
+			sourceTree = "<group>";
+		};
+		7DD59A2B2CCC77780078B720 /* VideoLUTConverterUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = VideoLUTConverterUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7DD59A0A2CCC77760078B720 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DD59A1B2CCC77770078B720 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DD59A252CCC77780078B720 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7DD59A042CCC77760078B720 = {
+			isa = PBXGroup;
+			children = (
+				7DD59A0F2CCC77760078B720 /* VideoLUTConverter */,
+				7DD59A212CCC77770078B720 /* VideoLUTConverterTests */,
+				7DD59A2B2CCC77780078B720 /* VideoLUTConverterUITests */,
+				7DD59A0E2CCC77760078B720 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7DD59A0E2CCC77760078B720 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7DD59A0D2CCC77760078B720 /* VideoLUTConverter.app */,
+				7DD59A1E2CCC77770078B720 /* VideoLUTConverterTests.xctest */,
+				7DD59A282CCC77780078B720 /* VideoLUTConverterUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7DD59A0C2CCC77760078B720 /* VideoLUTConverter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DD59A322CCC77780078B720 /* Build configuration list for PBXNativeTarget "VideoLUTConverter" */;
+			buildPhases = (
+				7DD59A092CCC77760078B720 /* Sources */,
+				7DD59A0A2CCC77760078B720 /* Frameworks */,
+				7DD59A0B2CCC77760078B720 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				7DD59A0F2CCC77760078B720 /* VideoLUTConverter */,
+			);
+			name = VideoLUTConverter;
+			packageProductDependencies = (
+			);
+			productName = VideoLUTConverter;
+			productReference = 7DD59A0D2CCC77760078B720 /* VideoLUTConverter.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7DD59A1D2CCC77770078B720 /* VideoLUTConverterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DD59A352CCC77780078B720 /* Build configuration list for PBXNativeTarget "VideoLUTConverterTests" */;
+			buildPhases = (
+				7DD59A1A2CCC77770078B720 /* Sources */,
+				7DD59A1B2CCC77770078B720 /* Frameworks */,
+				7DD59A1C2CCC77770078B720 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7DD59A202CCC77770078B720 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				7DD59A212CCC77770078B720 /* VideoLUTConverterTests */,
+			);
+			name = VideoLUTConverterTests;
+			packageProductDependencies = (
+			);
+			productName = VideoLUTConverterTests;
+			productReference = 7DD59A1E2CCC77770078B720 /* VideoLUTConverterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7DD59A272CCC77780078B720 /* VideoLUTConverterUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DD59A382CCC77780078B720 /* Build configuration list for PBXNativeTarget "VideoLUTConverterUITests" */;
+			buildPhases = (
+				7DD59A242CCC77780078B720 /* Sources */,
+				7DD59A252CCC77780078B720 /* Frameworks */,
+				7DD59A262CCC77780078B720 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7DD59A2A2CCC77780078B720 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				7DD59A2B2CCC77780078B720 /* VideoLUTConverterUITests */,
+			);
+			name = VideoLUTConverterUITests;
+			packageProductDependencies = (
+			);
+			productName = VideoLUTConverterUITests;
+			productReference = 7DD59A282CCC77780078B720 /* VideoLUTConverterUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7DD59A052CCC77760078B720 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					7DD59A0C2CCC77760078B720 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					7DD59A1D2CCC77770078B720 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 7DD59A0C2CCC77760078B720;
+					};
+					7DD59A272CCC77780078B720 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 7DD59A0C2CCC77760078B720;
+					};
+				};
+			};
+			buildConfigurationList = 7DD59A082CCC77760078B720 /* Build configuration list for PBXProject "VideoLUTConverter" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7DD59A042CCC77760078B720;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 7DD59A0E2CCC77760078B720 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7DD59A0C2CCC77760078B720 /* VideoLUTConverter */,
+				7DD59A1D2CCC77770078B720 /* VideoLUTConverterTests */,
+				7DD59A272CCC77780078B720 /* VideoLUTConverterUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7DD59A0B2CCC77760078B720 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DD59A1C2CCC77770078B720 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DD59A262CCC77780078B720 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7DD59A092CCC77760078B720 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DD59A1A2CCC77770078B720 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DD59A242CCC77780078B720 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7DD59A202CCC77770078B720 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7DD59A0C2CCC77760078B720 /* VideoLUTConverter */;
+			targetProxy = 7DD59A1F2CCC77770078B720 /* PBXContainerItemProxy */;
+		};
+		7DD59A2A2CCC77780078B720 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7DD59A0C2CCC77760078B720 /* VideoLUTConverter */;
+			targetProxy = 7DD59A292CCC77780078B720 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		7DD59A302CCC77780078B720 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7DD59A312CCC77780078B720 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		7DD59A332CCC77780078B720 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VideoLUTConverter/VideoLUTConverter.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BJPH4NFNB7;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = raamblings.VideoLUTConverter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		7DD59A342CCC77780078B720 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VideoLUTConverter/VideoLUTConverter.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BJPH4NFNB7;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = raamblings.VideoLUTConverter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		7DD59A362CCC77780078B720 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BJPH4NFNB7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = raamblings.VideoLUTConverterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VideoLUTConverter.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VideoLUTConverter";
+			};
+			name = Debug;
+		};
+		7DD59A372CCC77780078B720 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BJPH4NFNB7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = raamblings.VideoLUTConverterTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VideoLUTConverter.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VideoLUTConverter";
+			};
+			name = Release;
+		};
+		7DD59A392CCC77780078B720 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BJPH4NFNB7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = raamblings.VideoLUTConverterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = VideoLUTConverter;
+			};
+			name = Debug;
+		};
+		7DD59A3A2CCC77780078B720 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BJPH4NFNB7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = raamblings.VideoLUTConverterUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = VideoLUTConverter;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7DD59A082CCC77760078B720 /* Build configuration list for PBXProject "VideoLUTConverter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DD59A302CCC77780078B720 /* Debug */,
+				7DD59A312CCC77780078B720 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7DD59A322CCC77780078B720 /* Build configuration list for PBXNativeTarget "VideoLUTConverter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DD59A332CCC77780078B720 /* Debug */,
+				7DD59A342CCC77780078B720 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7DD59A352CCC77780078B720 /* Build configuration list for PBXNativeTarget "VideoLUTConverterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DD59A362CCC77780078B720 /* Debug */,
+				7DD59A372CCC77780078B720 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7DD59A382CCC77780078B720 /* Build configuration list for PBXNativeTarget "VideoLUTConverterUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DD59A392CCC77780078B720 /* Debug */,
+				7DD59A3A2CCC77780078B720 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7DD59A052CCC77760078B720 /* Project object */;
+}
