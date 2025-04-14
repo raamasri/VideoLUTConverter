@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11134" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11134"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -673,7 +674,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="VideoLUTConverter" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -703,15 +704,216 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="VideoLUTConverter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1481" height="663"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N8c-ZY-sMm">
+                                <rect key="frame" x="16" y="151" width="101" height="32"/>
+                                <buttonCell key="cell" type="push" title="Select LUT" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="r2p-sA-JbK">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="selectLUT:" target="XfG-lQ-9wD" id="31G-bx-EHW"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Ih-6g-BQ6">
+                                <rect key="frame" x="16" y="38" width="151" height="32"/>
+                                <buttonCell key="cell" type="push" title="Convert to Rec.709" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZxK-Sh-hMy">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="exportVideo:" target="XfG-lQ-9wD" id="qyp-N9-2yY"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tKr-zY-Ej1">
+                                <rect key="frame" x="13" y="624" width="109" height="32"/>
+                                <buttonCell key="cell" type="push" title="Load Videos" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iTO-7r-wVM">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="loadVideo:" target="XfG-lQ-9wD" id="7cG-V4-6hf"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ppT-3H-kvn">
+                                <rect key="frame" x="373" y="151" width="160" height="32"/>
+                                <buttonCell key="cell" type="push" title="Switch to GPU Mode" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="T1R-rR-MO2">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="toggleEncodingMode:" target="XfG-lQ-9wD" id="lOO-v4-rMP"/>
+                                </connections>
+                            </button>
+                            <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jME-Ec-Bfa">
+                                <rect key="frame" x="20" y="192" width="506" height="428"/>
+                                <clipView key="contentView" drawsBackground="NO" id="brF-JB-0fR">
+                                    <rect key="frame" x="0.0" y="0.0" width="506" height="428"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textView wantsLayer="YES" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="VjW-m7-Q2p">
+                                            <rect key="frame" x="0.0" y="0.0" width="506" height="428"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <size key="minSize" width="506" height="428"/>
+                                            <size key="maxSize" width="855" height="10000000"/>
+                                        </textView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="Uon-Jf-Nfg">
+                                    <rect key="frame" x="-100" y="-100" width="240" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="dKh-3O-z4w">
+                                    <rect key="frame" x="490" y="0.0" width="16" height="428"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="n3I-wg-seK">
+                                <rect key="frame" x="462" y="38" width="68" height="32"/>
+                                <buttonCell key="cell" type="push" title="Abort" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZaT-58-eQg">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="abortProcess:" target="XfG-lQ-9wD" id="QgD-CU-RHL"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZpX-Le-pUB">
+                                <rect key="frame" x="16" y="113" width="151" height="32"/>
+                                <buttonCell key="cell" type="push" title="Select Second LUT" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Z8T-k7-297">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="137" id="nIy-mv-TO9"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="selectSecondLUT:" target="XfG-lQ-9wD" id="y5Z-jQ-1SU"/>
+                                </connections>
+                            </button>
+                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HeJ-n3-OhN">
+                                <rect key="frame" x="21" y="79" width="380" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="376" id="kcc-5M-XU6"/>
+                                </constraints>
+                                <sliderCell key="cell" state="on" alignment="left" maxValue="1" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="CmE-Uk-ikl">
+                                    <font key="font" size="12" name="Helvetica"/>
+                                </sliderCell>
+                                <connections>
+                                    <action selector="secondLUTOpacityChanged:" target="XfG-lQ-9wD" id="7cC-k5-rKe"/>
+                                </connections>
+                            </slider>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dEL-43-Gsz">
+                                <rect key="frame" x="546" y="158" width="921" height="462"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="921" id="hfe-iJ-Q3A"/>
+                                    <constraint firstAttribute="width" secondItem="dEL-43-Gsz" secondAttribute="height" multiplier="399:317" constant="339.49211356466878" id="iTt-FH-jUx"/>
+                                    <constraint firstAttribute="height" constant="462" id="wSE-Y7-IMb"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="Iko-Mw-2xu"/>
+                            </imageView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="beK-a3-sUD">
+                                <rect key="frame" x="1281" y="635" width="182" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="© Raama Srivatsan 2024 v1.7" id="et6-R2-sYt">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5wI-xc-gsq">
+                                <rect key="frame" x="423" y="88" width="105" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="101" id="D87-DW-8wn"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="%" id="kSG-DJ-svB">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O4X-Di-HRV">
+                                <rect key="frame" x="940" y="635" width="132" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Video Frame Preview" id="tyi-Sd-BNW">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <progressIndicator fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="niF-js-3qn">
+                                <rect key="frame" x="179" y="45" width="271" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </progressIndicator>
+                            <progressIndicator fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="jAe-tw-BTK">
+                                <rect key="frame" x="22" y="11" width="501" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </progressIndicator>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gpi-Qb-Zbq">
+                                <rect key="frame" x="165" y="635" width="131" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Video LUT Converter" id="7Wt-73-zjY">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="N8c-ZY-sMm" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="23" id="2SP-Nc-Kdg"/>
+                            <constraint firstItem="beK-a3-sUD" firstAttribute="top" secondItem="6Ih-6g-BQ6" secondAttribute="bottom" constant="-606" id="8Sc-Ly-ttN"/>
+                            <constraint firstItem="ppT-3H-kvn" firstAttribute="leading" secondItem="6Ih-6g-BQ6" secondAttribute="leading" constant="357" id="Avl-bg-fZk"/>
+                            <constraint firstItem="jME-Ec-Bfa" firstAttribute="leading" secondItem="n3I-wg-seK" secondAttribute="trailing" constant="-503" id="Cgo-HL-B2q"/>
+                            <constraint firstItem="beK-a3-sUD" firstAttribute="baseline" secondItem="O4X-Di-HRV" secondAttribute="baseline" id="F5x-PA-vly"/>
+                            <constraint firstItem="HeJ-n3-OhN" firstAttribute="leading" secondItem="ZpX-Le-pUB" secondAttribute="trailing" constant="-137" id="FA9-gk-paz"/>
+                            <constraint firstItem="5wI-xc-gsq" firstAttribute="leading" secondItem="HeJ-n3-OhN" secondAttribute="trailing" constant="26" id="Ho9-Bm-k13"/>
+                            <constraint firstItem="dEL-43-Gsz" firstAttribute="top" secondItem="tKr-zY-Ej1" secondAttribute="bottom" constant="11" id="IQD-3F-hZM"/>
+                            <constraint firstItem="6Ih-6g-BQ6" firstAttribute="top" secondItem="ppT-3H-kvn" secondAttribute="bottom" constant="93" id="IkH-yB-NNA"/>
+                            <constraint firstAttribute="bottom" secondItem="6Ih-6g-BQ6" secondAttribute="bottom" constant="45" id="JlD-Xk-221"/>
+                            <constraint firstItem="gpi-Qb-Zbq" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="12" id="LNa-Tq-Vdy"/>
+                            <constraint firstItem="dEL-43-Gsz" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="546" id="LlA-E0-Uyg"/>
+                            <constraint firstItem="ppT-3H-kvn" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="380" id="OTf-9v-Hkm"/>
+                            <constraint firstItem="6Ih-6g-BQ6" firstAttribute="baseline" secondItem="n3I-wg-seK" secondAttribute="baseline" id="PEB-DB-YeK"/>
+                            <constraint firstItem="gpi-Qb-Zbq" firstAttribute="top" secondItem="jME-Ec-Bfa" secondAttribute="top" constant="-31" id="QUG-q0-ZN6"/>
+                            <constraint firstItem="dEL-43-Gsz" firstAttribute="trailing" secondItem="5wI-xc-gsq" secondAttribute="trailing" constant="941" id="QVH-xt-kdr"/>
+                            <constraint firstItem="n3I-wg-seK" firstAttribute="bottom" secondItem="jME-Ec-Bfa" secondAttribute="bottom" constant="147" id="R6l-EZ-TkV"/>
+                            <constraint firstItem="ZpX-Le-pUB" firstAttribute="top" secondItem="N8c-ZY-sMm" secondAttribute="bottom" constant="18" id="RZU-e4-pWl"/>
+                            <constraint firstItem="N8c-ZY-sMm" firstAttribute="top" secondItem="dEL-43-Gsz" secondAttribute="bottom" constant="-20" id="Vds-NK-yMV"/>
+                            <constraint firstItem="N8c-ZY-sMm" firstAttribute="leading" secondItem="ZpX-Le-pUB" secondAttribute="leading" id="Vsr-0h-hoZ"/>
+                            <constraint firstItem="ZpX-Le-pUB" firstAttribute="baseline" secondItem="HeJ-n3-OhN" secondAttribute="baseline" constant="-35" id="WOG-Zk-HcX"/>
+                            <constraint firstAttribute="trailing" secondItem="jME-Ec-Bfa" secondAttribute="trailing" constant="955" id="bmN-H1-9un"/>
+                            <constraint firstItem="beK-a3-sUD" firstAttribute="leading" secondItem="6Ih-6g-BQ6" secondAttribute="leading" constant="1260" id="cSf-C1-XXz"/>
+                            <constraint firstItem="ppT-3H-kvn" firstAttribute="top" secondItem="ZpX-Le-pUB" secondAttribute="bottom" constant="-58" id="dIW-KM-s6V"/>
+                            <constraint firstItem="HeJ-n3-OhN" firstAttribute="baseline" secondItem="5wI-xc-gsq" secondAttribute="baseline" id="dWY-sr-LPH"/>
+                            <constraint firstItem="jME-Ec-Bfa" firstAttribute="leading" secondItem="dEL-43-Gsz" secondAttribute="trailing" constant="-1447" id="jJE-Ob-lWd"/>
+                            <constraint firstItem="gpi-Qb-Zbq" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="167" id="leD-gX-oH4"/>
+                            <constraint firstItem="O4X-Di-HRV" firstAttribute="centerX" secondItem="dEL-43-Gsz" secondAttribute="centerX" id="soZ-Oi-9Gc"/>
+                            <constraint firstItem="tKr-zY-Ej1" firstAttribute="top" secondItem="gpi-Qb-Zbq" secondAttribute="bottom" constant="-16" id="tYX-mD-YQG"/>
+                            <constraint firstItem="tKr-zY-Ej1" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="xMI-dN-bko"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="abortButton" destination="n3I-wg-seK" id="vM1-tm-Fpf"/>
+                        <outlet property="exportButton" destination="6Ih-6g-BQ6" id="slk-h3-OzE"/>
+                        <outlet property="loadVideoButton" destination="tKr-zY-Ej1" id="YSr-vh-AP6"/>
+                        <outlet property="opacityLabel" destination="5wI-xc-gsq" id="G1N-BN-h85"/>
+                        <outlet property="overallProgressIndicator" destination="jAe-tw-BTK" id="QxA-K0-Fhg"/>
+                        <outlet property="previewImageView" destination="dEL-43-Gsz" id="UQe-Je-uf1"/>
+                        <outlet property="progressIndicator" destination="niF-js-3qn" id="AQy-Od-dLP"/>
+                        <outlet property="secondLUTOpacitySlider" destination="HeJ-n3-OhN" id="IBe-Bj-jgb"/>
+                        <outlet property="selectLUTButton" destination="N8c-ZY-sMm" id="A0O-BD-mnb"/>
+                        <outlet property="selectSecondLUTButton" destination="ZpX-Le-pUB" id="KaI-s2-g4f"/>
+                        <outlet property="sourceItemView" destination="jME-Ec-Bfa" id="qbZ-fq-0Sh"/>
+                        <outlet property="statusTextView" destination="VjW-m7-Q2p" id="QCR-wB-zW2"/>
+                        <outlet property="toggleEncodingButton" destination="ppT-3H-kvn" id="dFu-85-UQx"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="69.5" y="996.5"/>
         </scene>
     </scenes>
 </document>
