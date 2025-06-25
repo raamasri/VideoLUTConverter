@@ -820,7 +820,7 @@
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="beK-a3-sUD">
                                 <rect key="frame" x="1281" y="635" width="182" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="© Raama Srivatsan 2024 v1.7" id="et6-R2-sYt">
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="© Raama Srivatsan 2025 v2.0" id="et6-R2-sYt">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
