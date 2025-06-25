@@ -94,22 +94,22 @@ class FFmpegManager {
     }
     
     private func detectFFmpegBinary() {
-        // Strategy 1: Try system-installed FFmpeg (Homebrew, MacPorts, etc.)
-        if let systemPath = findSystemFFmpeg() {
-            if validateBinary(at: systemPath) {
-                self.cachedFFmpegPath = systemPath
-                self.cachedSource = .systemInstalled(systemPath)
-                NSLog("FFmpeg found via system installation: \(systemPath)")
-                return
-            }
-        }
-        
-        // Strategy 2: Try bundled universal binary
+        // Strategy 1: Try bundled universal binary FIRST (highest priority)
         if let universalPath = Bundle.main.path(forResource: "ffmpeg-universal", ofType: nil) {
             if validateBinary(at: universalPath) {
                 self.cachedFFmpegPath = universalPath
                 self.cachedSource = .bundledUniversal(universalPath)
                 NSLog("FFmpeg found: bundled universal binary")
+                return
+            }
+        }
+        
+        // Strategy 2: Try default bundled binary (statically linked)
+        if let defaultPath = Bundle.main.path(forResource: "ffmpeg", ofType: nil) {
+            if validateBinary(at: defaultPath) {
+                self.cachedFFmpegPath = defaultPath
+                self.cachedSource = .bundledArchSpecific(defaultPath)
+                NSLog("FFmpeg found: default bundled binary (statically linked)")
                 return
             }
         }
@@ -125,12 +125,12 @@ class FFmpegManager {
             }
         }
         
-        // Strategy 4: Try default bundled binary (for backward compatibility)
-        if let defaultPath = Bundle.main.path(forResource: "ffmpeg", ofType: nil) {
-            if validateBinary(at: defaultPath) {
-                self.cachedFFmpegPath = defaultPath
-                self.cachedSource = .bundledArchSpecific(defaultPath)
-                NSLog("FFmpeg found: default bundled binary (may have architecture limitations)")
+        // Strategy 4: Try system-installed FFmpeg as FALLBACK ONLY
+        if let systemPath = findSystemFFmpeg() {
+            if validateBinary(at: systemPath) {
+                self.cachedFFmpegPath = systemPath
+                self.cachedSource = .systemInstalled(systemPath)
+                NSLog("FFmpeg found via system installation (fallback): \(systemPath)")
                 return
             }
         }
