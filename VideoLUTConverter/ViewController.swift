@@ -54,6 +54,9 @@ class ViewController: NSViewController {
         
         // Set the initial button title based on the default mode
         toggleEncodingButton.title = "Switch to CPU Mode"
+        
+        // Setup drag and drop
+        setupDragAndDrop()
     }
     
     override func viewDidAppear() {
@@ -481,5 +484,88 @@ class ViewController: NSViewController {
                 self.logMessage("Process aborted by user.")
             }
         }
+    }
+    
+    // MARK: - Drag and Drop Support
+    
+    private func setupDragAndDrop() {
+        // Register the main view for drag and drop
+        view.registerForDraggedTypes([.fileURL])
+    }
+    
+    func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        let pasteboard = sender.draggingPasteboard
+        
+        guard let fileURLs = pasteboard.readObjects(forClasses: [NSURL.self], options: nil) as? [URL] else {
+            return []
+        }
+        
+        // Check if we have video or LUT files
+        let hasVideoFiles = fileURLs.contains { isVideoFile($0) }
+        let hasLUTFiles = fileURLs.contains { isLUTFile($0) }
+        
+        if hasVideoFiles || hasLUTFiles {
+            return .copy
+        }
+        
+        return []
+    }
+    
+    func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        let pasteboard = sender.draggingPasteboard
+        guard let fileURLs = pasteboard.readObjects(forClasses: [NSURL.self], options: nil) as? [URL] else {
+            return false
+        }
+        
+        // Separate video and LUT files
+        let videoFiles = fileURLs.filter { isVideoFile($0) }
+        let lutFiles = fileURLs.filter { isLUTFile($0) }
+        
+        // Handle video files
+        if !videoFiles.isEmpty {
+            videoURLs = videoFiles
+            let videoNames = videoFiles.map { $0.lastPathComponent }.joined(separator: ", ")
+            logMessage("Loaded video(s) via drag & drop: \(videoNames)")
+        }
+        
+        // Handle LUT files
+        if !lutFiles.isEmpty {
+            // If we don't have a primary LUT, assign the first one as primary
+            if primaryLUTURL == nil {
+                primaryLUTURL = lutFiles.first
+                logMessage("Loaded primary LUT via drag & drop: \(lutFiles.first!.lastPathComponent)")
+                
+                // If there's a second LUT file, assign it as secondary
+                if lutFiles.count > 1 {
+                    secondaryLUTURL = lutFiles[1]
+                    logMessage("Loaded secondary LUT via drag & drop: \(lutFiles[1].lastPathComponent)")
+                }
+            } else {
+                // If we already have a primary LUT, assign as secondary
+                secondaryLUTURL = lutFiles.first
+                logMessage("Loaded secondary LUT via drag & drop: \(lutFiles.first!.lastPathComponent)")
+            }
+        }
+        
+        // Update preview if we have both video and LUT
+        if !videoFiles.isEmpty || !lutFiles.isEmpty {
+            updatePreview()
+            return true
+        }
+        
+        return false
+    }
+    
+    // MARK: - File Type Validation
+    private func isVideoFile(_ url: URL) -> Bool {
+        let videoExtensions = ["mov", "mp4", "avi", "mkv", "m4v", "wmv", "flv", "webm", "3gp", "mts", "m2ts"]
+        let fileExtension = url.pathExtension.lowercased()
+        return videoExtensions.contains(fileExtension)
+    }
+    
+    private func isLUTFile(_ url: URL) -> Bool {
+        let lutExtensions = ["cube", "3dl", "lut"]
+        let fileExtension = url.pathExtension.lowercased()
+        return lutExtensions.contains(fileExtension)
     }
 }
