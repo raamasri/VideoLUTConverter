@@ -310,114 +310,132 @@ class ViewController: NSViewController {
                     
                     self.logMessage("Starting export for \(videoURL.lastPathComponent)...")
                     
-                    // Calculate total frames
+                    // Calculate total frames using modern async APIs
                     let asset = AVURLAsset(url: videoURL)
-                    if let track = asset.tracks(withMediaType: .video).first {
-                        let fps = track.nominalFrameRate
-                        let duration = CMTimeGetSeconds(asset.duration)
-                        self.totalFrames = Int(Double(fps) * duration)
-                        DispatchQueue.main.async {
-                            self.progressIndicator.minValue = 0
-                            self.progressIndicator.maxValue = 1
-                            self.progressIndicator.doubleValue = 0
-                        }
-                    } else {
-                        // Handle case where video track is not found
-                        self.logMessage("Failed to retrieve video track for \(videoURL.lastPathComponent).")
-                        return
-                    }
-                    
-                    var arguments: [String] = ["-y"]
-                    
-                    // Input file
-                    arguments += ["-i", videoURL.path]
-                    
-                    // Video encoding settings
-                    arguments += ["-fps_mode", "passthrough", "-ignore_editlist", "1"]
-                    
-                    // Configure video codec using FilterBuilder
-                    arguments += FilterBuilder.buildEncodingArguments(useGPU: self.useGPU)
-                    
-                    // Configure audio codec
-                    arguments += ["-c:a", "aac", "-b:a", "192k"]
-                    
-                    // Apply filter_complex using FilterBuilder
-                    let pixelFormat = self.useGPU ? "nv12" : "yuv422p"
-                    let filterComplex = FilterBuilder.buildExportFilter(
-                        primaryLUTPath: primaryLUTURL.path,
-                        secondaryLUTPath: secondaryLUTURL?.path,
-                        opacity: self.secondLUTOpacity,
-                        pixelFormat: pixelFormat
-                    )
-                    
-                    arguments += ["-filter_complex", filterComplex]
-                    arguments += ["-map", "[out]"]
-                    arguments += ["-map", "0:a?"] // Map audio if available
-                    
-                    arguments += [exportURL.path]
-                    
-                    // Log FFmpeg command for reference
-                    self.logMessage("Exporting with FFmpeg command: ffmpeg \(arguments.joined(separator: " "))")
-                    
-                    let task = Process()
-                    if let ffmpegPath = Bundle.main.path(forResource: "ffmpeg", ofType: nil) {
-                        task.executableURL = URL(fileURLWithPath: ffmpegPath)
-                    } else {
-                        self.logMessage("FFmpeg executable not found in the app bundle.")
-                        return
-                    }
-                    
-                    task.arguments = arguments
-                    
-                    let pipe = Pipe()
-                    task.standardOutput = pipe
-                    task.standardError = pipe
-                    self.ffmpegProcess = task
-                    
-                    // Readability handler for progress parsing
-                    pipe.fileHandleForReading.readabilityHandler = { [weak self] handle in
-                        if let output = String(data: handle.availableData, encoding: .utf8), !output.isEmpty {
-                            let cleanOutput = self?.stripANSIColors(from: output.trimmingCharacters(in: .whitespacesAndNewlines))
-                            
-                            // Update log
-                            DispatchQueue.main.async {
-                                self?.logMessage(cleanOutput ?? "")
-                            }
-                            
-                            // Progress parsing
-                            if let frameMatch = cleanOutput?.range(of: #"frame=\s*\d+"#, options: .regularExpression) {
-                                let frameText = cleanOutput![frameMatch]
-                                if let frameValue = Int(frameText.split(separator: "=")[1].trimmingCharacters(in: .whitespaces)) {
-                                    // Calculate progress fraction
-                                    let progressFraction = Double(frameValue) / Double(self?.totalFrames ?? 1)
-                                    DispatchQueue.main.async {
-                                        self?.progressIndicator.doubleValue = progressFraction
-                                    }
+                    Task {
+                        do {
+                            let tracks = try await asset.loadTracks(withMediaType: .video)
+                            if let track = tracks.first {
+                                let fps = try await track.load(.nominalFrameRate)
+                                let duration = try await asset.load(.duration)
+                                let totalFrames = Int(Double(fps) * CMTimeGetSeconds(duration))
+                                
+                                await MainActor.run {
+                                    self.totalFrames = totalFrames
+                                    self.progressIndicator.minValue = 0
+                                    self.progressIndicator.maxValue = 1
+                                    self.progressIndicator.doubleValue = 0
+                                    
+                                    // Continue with FFmpeg execution after metadata is loaded
+                                    self.executeFFmpegExport(videoURL: videoURL, primaryLUTURL: primaryLUTURL, secondaryLUTURL: secondaryLUTURL, exportURL: exportURL, completion: completion)
                                 }
-                            }
-                        }
-                    }
-                    
-                    task.terminationHandler = { process in
-                        DispatchQueue.main.async {
-                            if process.terminationStatus == 0 {
-                                self.logMessage("Export completed successfully for \(videoURL.lastPathComponent)!")
                             } else {
-                                self.logMessage("Export failed for \(videoURL.lastPathComponent).")
+                                await MainActor.run {
+                                    self.logMessage("Failed to retrieve video track for \(videoURL.lastPathComponent).")
+                                }
+                                return
                             }
-                            self.ffmpegProcess = nil
-                            completion()
+                        } catch {
+                            await MainActor.run {
+                                self.logMessage("Failed to load video metadata: \(error.localizedDescription)")
+                            }
+                            return
                         }
-                    }
-                    
-                    do {
-                        try task.run()
-                        self.logMessage("FFmpeg process started for \(videoURL.lastPathComponent).")
-                    } catch {
-                        self.logMessage("Failed to start FFmpeg process for \(videoURL.lastPathComponent): \(error.localizedDescription)")
                     }
                 }
             })
+        }
+    }
+    
+    private func executeFFmpegExport(videoURL: URL, primaryLUTURL: URL, secondaryLUTURL: URL?, exportURL: URL, completion: @escaping () -> Void) {
+        var arguments: [String] = ["-y"]
+        
+        // Input file
+        arguments += ["-i", videoURL.path]
+        
+        // Video encoding settings
+        arguments += ["-fps_mode", "passthrough", "-ignore_editlist", "1"]
+        
+        // Configure video codec using FilterBuilder
+        arguments += FilterBuilder.buildEncodingArguments(useGPU: self.useGPU)
+        
+        // Configure audio codec
+        arguments += ["-c:a", "aac", "-b:a", "192k"]
+        
+        // Apply filter_complex using FilterBuilder
+        let pixelFormat = self.useGPU ? "nv12" : "yuv422p"
+        let filterComplex = FilterBuilder.buildExportFilter(
+            primaryLUTPath: primaryLUTURL.path,
+            secondaryLUTPath: secondaryLUTURL?.path,
+            opacity: self.secondLUTOpacity,
+            pixelFormat: pixelFormat
+        )
+        
+        arguments += ["-filter_complex", filterComplex]
+        arguments += ["-map", "[out]"]
+        arguments += ["-map", "0:a?"] // Map audio if available
+        
+        arguments += [exportURL.path]
+        
+        // Log FFmpeg command for reference
+        self.logMessage("Exporting with FFmpeg command: ffmpeg \(arguments.joined(separator: " "))")
+        
+        let task = Process()
+        if let ffmpegPath = Bundle.main.path(forResource: "ffmpeg", ofType: nil) {
+            task.executableURL = URL(fileURLWithPath: ffmpegPath)
+        } else {
+            self.logMessage("FFmpeg executable not found in the app bundle.")
+            return
+        }
+        
+        task.arguments = arguments
+        
+        let pipe = Pipe()
+        task.standardOutput = pipe
+        task.standardError = pipe
+        self.ffmpegProcess = task
+        
+        // Readability handler for progress parsing
+        pipe.fileHandleForReading.readabilityHandler = { [weak self] handle in
+            if let output = String(data: handle.availableData, encoding: .utf8), !output.isEmpty {
+                let cleanOutput = self?.stripANSIColors(from: output.trimmingCharacters(in: .whitespacesAndNewlines))
+                
+                // Update log
+                DispatchQueue.main.async {
+                    self?.logMessage(cleanOutput ?? "")
+                }
+                
+                // Progress parsing
+                if let frameMatch = cleanOutput?.range(of: #"frame=\s*\d+"#, options: .regularExpression) {
+                    let frameText = cleanOutput![frameMatch]
+                    if let frameValue = Int(frameText.split(separator: "=")[1].trimmingCharacters(in: .whitespaces)) {
+                        // Calculate progress fraction
+                        let progressFraction = Double(frameValue) / Double(self?.totalFrames ?? 1)
+                        DispatchQueue.main.async {
+                            self?.progressIndicator.doubleValue = progressFraction
+                        }
+                    }
+                }
+            }
+        }
+        
+        task.terminationHandler = { process in
+            DispatchQueue.main.async {
+                if process.terminationStatus == 0 {
+                    self.logMessage("Export completed successfully for \(videoURL.lastPathComponent)!")
+                } else {
+                    self.logMessage("Export failed for \(videoURL.lastPathComponent).")
+                }
+                self.ffmpegProcess = nil
+                completion()
+            }
+        }
+        
+        do {
+            try task.run()
+            self.logMessage("FFmpeg process started for \(videoURL.lastPathComponent).")
+        } catch {
+            self.logMessage("Failed to start FFmpeg process for \(videoURL.lastPathComponent): \(error.localizedDescription)")
         }
     }
     
