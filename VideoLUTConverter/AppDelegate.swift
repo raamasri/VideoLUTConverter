@@ -15,7 +15,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
-        let initialSize = NSSize(width: 1200, height: 700)
+        let initialSize = NSSize(width: 1475, height: 700)
         let minSize = NSSize(width: 900, height: 600)
         if let window = NSApplication.shared.windows.first {
             window.setContentSize(initialSize)
