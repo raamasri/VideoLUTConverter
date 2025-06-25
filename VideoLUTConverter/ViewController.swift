@@ -62,17 +62,15 @@ class ViewController: NSViewController {
     }
     
     func stripANSIColors(from text: String) -> String {
-        let pattern = "\u{001B}\\[[0-9;]*m"
-        return text.replacingOccurrences(of: pattern, with: "", options: .regularExpression, range: nil)
+        return StringUtilities.stripANSIColors(from: text)
     }
     
     func logMessage(_ message: String) {
-        let timestamp = DateFormatter.localizedString(from: Date(), dateStyle: .none, timeStyle: .medium)
-        let fullMessage = "[\(timestamp)] \(message)\n"
+        let fullMessage = StringUtilities.createLogMessage(message)
         
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: NSColor.white,
-            .font: NSFont.systemFont(ofSize: NSFont.systemFontSize)
+            .font: NSFont.systemFont(ofSize: UIConstants.statusTextFontSize)
         ]
         let attributedString = NSAttributedString(string: fullMessage, attributes: attributes)
         
@@ -176,45 +174,14 @@ class ViewController: NSViewController {
             // Input file
             arguments += ["-ss", "0", "-i", videoURL.path]
             
-            // Apply LUT filters
-            if let primaryLUTURL = self.primaryLUTURL {
-                if let secondaryLUTURL = self.secondaryLUTURL {
-                    // Both primary and secondary LUTs
-                    
-                    // Ensure opacityString uses '.' as decimal separator
-                    let opacityString: String = {
-                        let formatter = NumberFormatter()
-                        formatter.locale = Locale(identifier: "en_US_POSIX")
-                        formatter.numberStyle = .decimal
-                        formatter.maximumFractionDigits = 2
-                        formatter.minimumFractionDigits = 0
-                        return formatter.string(from: NSNumber(value: self.secondLUTOpacity)) ?? "1.0"
-                    }()
-                    
-                    let filterComplex = """
-                    [0:v]lut3d='\(primaryLUTURL.path)'[primary];
-                    [0:v]lut3d='\(primaryLUTURL.path)',lut3d='\(secondaryLUTURL.path)'[secondary];
-                    [primary][secondary]blend=all_mode='overlay':all_opacity=\(opacityString)[out]
-                    """
-                    
-                    arguments += [
-                        "-frames:v", "1",
-                        "-filter_complex", filterComplex,
-                        "-map", "[out]"
-                    ]
-                } else {
-                    // Only primary LUT
-                    arguments += [
-                        "-frames:v", "1",
-                        "-vf", "lut3d='\(primaryLUTURL.path)'"
-                    ]
-                }
-            } else {
-                // No LUTs applied
-                arguments += [
-                    "-frames:v", "1"
-                ]
-            }
+            // Apply LUT filters using FilterBuilder
+            let filterResult = FilterBuilder.buildPreviewFilter(
+                primaryLUTPath: self.primaryLUTURL?.path,
+                secondaryLUTPath: self.secondaryLUTURL?.path,
+                opacity: self.secondLUTOpacity
+            )
+            
+            arguments += filterResult.arguments
             
             // Output settings
             arguments += ["-y", "-f", "image2", tempImageURL.path]
@@ -368,50 +335,20 @@ class ViewController: NSViewController {
                     // Video encoding settings
                     arguments += ["-fps_mode", "passthrough", "-ignore_editlist", "1"]
                     
-                    // Configure video codec based on the chosen encoding mode
-                    if self.useGPU {
-                        arguments += [
-                            "-c:v", "h264_videotoolbox",
-                            "-b:v", "140000k",
-                            "-profile:v", "high",
-                            "-level:v", "5.1",
-                            "-pix_fmt", "nv12"
-                        ]
-                    } else {
-                        arguments += [
-                            "-c:v", "libx264",
-                            "-preset", "veryslow",
-                            "-crf", "0",
-                            "-pix_fmt", "yuv422p"
-                        ]
-                    }
+                    // Configure video codec using FilterBuilder
+                    arguments += FilterBuilder.buildEncodingArguments(useGPU: self.useGPU)
                     
                     // Configure audio codec
                     arguments += ["-c:a", "aac", "-b:a", "192k"]
                     
-                    // Apply filter_complex
-                    let opacityString: String = {
-                        let formatter = NumberFormatter()
-                        formatter.locale = Locale(identifier: "en_US_POSIX")
-                        formatter.numberStyle = .decimal
-                        formatter.maximumFractionDigits = 2
-                        formatter.minimumFractionDigits = 0
-                        return formatter.string(from: NSNumber(value: self.secondLUTOpacity)) ?? "1.0"
-                    }()
-                    
-                    var filterComplex = ""
-                    
-                    if let secondaryLUTURL = secondaryLUTURL {
-                        // Both primary and secondary LUTs
-                        filterComplex = """
-                        [0:v]lut3d='\(primaryLUTURL.path)'[primary];
-                        [0:v]lut3d='\(primaryLUTURL.path)',lut3d='\(secondaryLUTURL.path)'[secondary];
-                        [primary][secondary]blend=all_mode='overlay':all_opacity=\(opacityString),format=nv12[out]
-                        """
-                    } else {
-                        // Only primary LUT
-                        filterComplex = "[0:v]lut3d='\(primaryLUTURL.path)',format=nv12[out]"
-                    }
+                    // Apply filter_complex using FilterBuilder
+                    let pixelFormat = self.useGPU ? "nv12" : "yuv422p"
+                    let filterComplex = FilterBuilder.buildExportFilter(
+                        primaryLUTPath: primaryLUTURL.path,
+                        secondaryLUTPath: secondaryLUTURL?.path,
+                        opacity: self.secondLUTOpacity,
+                        pixelFormat: pixelFormat
+                    )
                     
                     arguments += ["-filter_complex", filterComplex]
                     arguments += ["-map", "[out]"]
