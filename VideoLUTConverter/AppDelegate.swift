@@ -25,8 +25,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSLog("Bundle ID: \(Bundle.main.bundleIdentifier ?? "unknown")")
         NSLog("Architecture: \(getSystemArchitecture())")
         
+        // Log FFmpeg Manager status
+        NSLog(FFmpegManager.getSystemInfo())
+        
         // Validate FFmpeg binary availability
-        validateFFmpegBinary()
+        if !FFmpegManager.validateFFmpegBinary() {
+            NSLog("WARNING: FFmpeg binary validation failed!")
+            showFFmpegWarning()
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -46,22 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return result == 1 ? "Apple Silicon (arm64)" : "Intel (x86_64)"
     }
     
-    private func validateFFmpegBinary() {
-        guard let ffmpegPath = Bundle.main.path(forResource: "ffmpeg", ofType: nil) else {
-            NSLog("WARNING: FFmpeg binary not found in bundle")
-            showFFmpegWarning()
-            return
-        }
-        
-        let fileManager = FileManager.default
-        guard fileManager.isExecutableFile(atPath: ffmpegPath) else {
-            NSLog("WARNING: FFmpeg binary is not executable")
-            showFFmpegWarning()
-            return
-        }
-        
-        NSLog("FFmpeg binary found and executable at: \(ffmpegPath)")
-    }
+    // Removed validateFFmpegBinary() - now handled by FFmpegManager
     
     private func showFFmpegWarning() {
         DispatchQueue.main.async {

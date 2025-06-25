@@ -24,11 +24,16 @@ class ProcessManager {
     }
     
     private func startFFmpegProcess(with arguments: [String], completion: @escaping (Bool) -> Void) {
-        guard let ffmpegPath = Bundle.main.path(forResource: "ffmpeg", ofType: nil) else {
-            delegate?.processManager(self, didLogMessage: "FFmpeg executable not found in the app bundle.")
+        do {
+            let ffmpegPath = try FFmpegManager.getFFmpegPath()
+            startFFmpegProcessWithPath(ffmpegPath, arguments: arguments, completion: completion)
+        } catch {
+            delegate?.processManager(self, didLogMessage: "FFmpeg error: \(error.localizedDescription)")
             completion(false)
-            return
         }
+    }
+    
+    private func startFFmpegProcessWithPath(_ ffmpegPath: String, arguments: [String], completion: @escaping (Bool) -> Void) {
         
         let task = Process()
         task.executableURL = URL(fileURLWithPath: ffmpegPath)

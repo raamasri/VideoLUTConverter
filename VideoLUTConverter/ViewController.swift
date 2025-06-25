@@ -190,10 +190,11 @@ class ViewController: NSViewController {
             self.logMessage("Generating preview image with FFmpeg command: ffmpeg \(arguments.joined(separator: " "))")
             
             let task = Process()
-            if let ffmpegPath = Bundle.main.path(forResource: "ffmpeg", ofType: nil) {
+            do {
+                let ffmpegPath = try FFmpegManager.getFFmpegPath()
                 task.executableURL = URL(fileURLWithPath: ffmpegPath)
-            } else {
-                self.logMessage("FFmpeg executable not found in the app bundle.")
+            } catch {
+                self.logMessage("FFmpeg error: \(error.localizedDescription)")
                 return
             }
             task.arguments = arguments
@@ -310,17 +311,52 @@ class ViewController: NSViewController {
                     
                     self.logMessage("Starting export for \(videoURL.lastPathComponent)...")
                     
-                    // Calculate total frames using modern async APIs
+                    // Calculate total frames using compatible APIs
                     let asset = AVURLAsset(url: videoURL)
-                    Task {
-                        do {
-                            let tracks = try await asset.loadTracks(withMediaType: .video)
+                    
+                    // Use older API compatible with macOS 11.0
+                    if #available(macOS 12.0, *) {
+                        // Use modern async APIs for macOS 12.0+
+                        Task {
+                            do {
+                                let tracks = try await asset.loadTracks(withMediaType: .video)
+                                if let track = tracks.first {
+                                    let fps = try await track.load(.nominalFrameRate)
+                                    let duration = try await asset.load(.duration)
+                                    let totalFrames = Int(Double(fps) * CMTimeGetSeconds(duration))
+                                    
+                                    await MainActor.run {
+                                        self.totalFrames = totalFrames
+                                        self.progressIndicator.minValue = 0
+                                        self.progressIndicator.maxValue = 1
+                                        self.progressIndicator.doubleValue = 0
+                                        
+                                        // Continue with FFmpeg execution after metadata is loaded
+                                        self.executeFFmpegExport(videoURL: videoURL, primaryLUTURL: primaryLUTURL, secondaryLUTURL: secondaryLUTURL, exportURL: exportURL, completion: completion)
+                                    }
+                                } else {
+                                    await MainActor.run {
+                                        self.logMessage("Failed to retrieve video track for \(videoURL.lastPathComponent).")
+                                    }
+                                    return
+                                }
+                            } catch {
+                                await MainActor.run {
+                                    self.logMessage("Failed to load video metadata: \(error.localizedDescription)")
+                                }
+                                return
+                            }
+                        }
+                    } else {
+                        // Use legacy API for macOS 11.0
+                        DispatchQueue.global(qos: .userInitiated).async {
+                            let tracks = asset.tracks(withMediaType: .video)
                             if let track = tracks.first {
-                                let fps = try await track.load(.nominalFrameRate)
-                                let duration = try await asset.load(.duration)
+                                let fps = track.nominalFrameRate
+                                let duration = asset.duration
                                 let totalFrames = Int(Double(fps) * CMTimeGetSeconds(duration))
                                 
-                                await MainActor.run {
+                                DispatchQueue.main.async {
                                     self.totalFrames = totalFrames
                                     self.progressIndicator.minValue = 0
                                     self.progressIndicator.maxValue = 1
@@ -330,16 +366,11 @@ class ViewController: NSViewController {
                                     self.executeFFmpegExport(videoURL: videoURL, primaryLUTURL: primaryLUTURL, secondaryLUTURL: secondaryLUTURL, exportURL: exportURL, completion: completion)
                                 }
                             } else {
-                                await MainActor.run {
+                                DispatchQueue.main.async {
                                     self.logMessage("Failed to retrieve video track for \(videoURL.lastPathComponent).")
                                 }
                                 return
                             }
-                        } catch {
-                            await MainActor.run {
-                                self.logMessage("Failed to load video metadata: \(error.localizedDescription)")
-                            }
-                            return
                         }
                     }
                 }
@@ -381,10 +412,11 @@ class ViewController: NSViewController {
         self.logMessage("Exporting with FFmpeg command: ffmpeg \(arguments.joined(separator: " "))")
         
         let task = Process()
-        if let ffmpegPath = Bundle.main.path(forResource: "ffmpeg", ofType: nil) {
+        do {
+            let ffmpegPath = try FFmpegManager.getFFmpegPath()
             task.executableURL = URL(fileURLWithPath: ffmpegPath)
-        } else {
-            self.logMessage("FFmpeg executable not found in the app bundle.")
+        } catch {
+            self.logMessage("FFmpeg error: \(error.localizedDescription)")
             return
         }
         
