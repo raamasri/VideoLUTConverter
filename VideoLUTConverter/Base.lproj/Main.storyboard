@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -706,11 +707,11 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="VideoLUTConverter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="1481" height="663"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1481" height="633"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="N8c-ZY-sMm">
-                                <rect key="frame" x="16" y="151" width="101" height="32"/>
+                                <rect key="frame" x="16" y="121" width="101" height="32"/>
                                 <buttonCell key="cell" type="push" title="Select LUT" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="r2p-sA-JbK">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -720,7 +721,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Ih-6g-BQ6">
-                                <rect key="frame" x="16" y="38" width="151" height="32"/>
+                                <rect key="frame" x="16" y="8" width="151" height="32"/>
                                 <buttonCell key="cell" type="push" title="Convert to Rec.709" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZxK-Sh-hMy">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -730,7 +731,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tKr-zY-Ej1">
-                                <rect key="frame" x="13" y="624" width="109" height="32"/>
+                                <rect key="frame" x="13" y="594" width="109" height="32"/>
                                 <buttonCell key="cell" type="push" title="Load Videos" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iTO-7r-wVM">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -740,7 +741,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ppT-3H-kvn">
-                                <rect key="frame" x="373" y="151" width="160" height="32"/>
+                                <rect key="frame" x="373" y="121" width="160" height="32"/>
                                 <buttonCell key="cell" type="push" title="Switch to GPU Mode" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="T1R-rR-MO2">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -750,7 +751,7 @@
                                 </connections>
                             </button>
                             <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jME-Ec-Bfa">
-                                <rect key="frame" x="20" y="192" width="506" height="428"/>
+                                <rect key="frame" x="20" y="162" width="506" height="428"/>
                                 <clipView key="contentView" drawsBackground="NO" id="brF-JB-0fR">
                                     <rect key="frame" x="0.0" y="0.0" width="506" height="428"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -775,7 +776,7 @@
                                 </scroller>
                             </scrollView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="n3I-wg-seK">
-                                <rect key="frame" x="462" y="38" width="68" height="32"/>
+                                <rect key="frame" x="462" y="8" width="68" height="32"/>
                                 <buttonCell key="cell" type="push" title="Abort" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZaT-58-eQg">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -785,7 +786,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZpX-Le-pUB">
-                                <rect key="frame" x="16" y="113" width="151" height="32"/>
+                                <rect key="frame" x="16" y="83" width="151" height="32"/>
                                 <buttonCell key="cell" type="push" title="Select Second LUT" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Z8T-k7-297">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -798,7 +799,7 @@
                                 </connections>
                             </button>
                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HeJ-n3-OhN">
-                                <rect key="frame" x="21" y="79" width="380" height="28"/>
+                                <rect key="frame" x="21" y="49" width="380" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="376" id="kcc-5M-XU6"/>
                                 </constraints>
@@ -809,8 +810,20 @@
                                     <action selector="secondLUTOpacityChanged:" target="XfG-lQ-9wD" id="7cC-k5-rKe"/>
                                 </connections>
                             </slider>
+                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WB-Sl-8Mn">
+                                <rect key="frame" x="21" y="23" width="380" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="376" id="kcc-5M-XU7"/>
+                                </constraints>
+                                <sliderCell key="cell" state="on" alignment="left" minValue="-10" maxValue="10" tickMarkPosition="above" sliderType="linear" id="WB-Sl-Cel">
+                                    <font key="font" size="12" name="Helvetica"/>
+                                </sliderCell>
+                                <connections>
+                                    <action selector="whiteBalanceChanged:" target="XfG-lQ-9wD" id="WB-Sl-Act"/>
+                                </connections>
+                            </slider>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dEL-43-Gsz">
-                                <rect key="frame" x="546" y="158" width="921" height="462"/>
+                                <rect key="frame" x="546" y="128" width="921" height="462"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="921" id="hfe-iJ-Q3A"/>
                                     <constraint firstAttribute="width" secondItem="dEL-43-Gsz" secondAttribute="height" multiplier="399:317" constant="339.49211356466878" id="iTt-FH-jUx"/>
@@ -818,16 +831,16 @@
                                 </constraints>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="Iko-Mw-2xu"/>
                             </imageView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="beK-a3-sUD">
-                                <rect key="frame" x="1281" y="635" width="182" height="16"/>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="beK-a3-sUD">
+                                <rect key="frame" x="1281" y="605" width="185" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="© Raama Srivatsan 2025 v2.0" id="et6-R2-sYt">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5wI-xc-gsq">
-                                <rect key="frame" x="423" y="88" width="105" height="16"/>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5wI-xc-gsq">
+                                <rect key="frame" x="423" y="58" width="105" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="101" id="D87-DW-8wn"/>
                                 </constraints>
@@ -837,8 +850,19 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O4X-Di-HRV">
-                                <rect key="frame" x="940" y="635" width="132" height="16"/>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WB-Lb-8Mn">
+                                <rect key="frame" x="423" y="32" width="130" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="126" id="WB-Lb-Wdt"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="White Balance: 5500K" id="WB-Lb-Cel">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O4X-Di-HRV">
+                                <rect key="frame" x="940" y="605" width="132" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Video Frame Preview" id="tyi-Sd-BNW">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -846,15 +870,15 @@
                                 </textFieldCell>
                             </textField>
                             <progressIndicator fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="niF-js-3qn">
-                                <rect key="frame" x="179" y="45" width="271" height="20"/>
+                                <rect key="frame" x="179" y="-55" width="271" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </progressIndicator>
                             <progressIndicator fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="jAe-tw-BTK">
-                                <rect key="frame" x="22" y="11" width="501" height="20"/>
+                                <rect key="frame" x="22" y="-25" width="501" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </progressIndicator>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gpi-Qb-Zbq">
-                                <rect key="frame" x="165" y="635" width="131" height="16"/>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gpi-Qb-Zbq">
+                                <rect key="frame" x="165" y="605" width="131" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Video LUT Converter" id="7Wt-73-zjY">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -872,7 +896,7 @@
                             <constraint firstItem="5wI-xc-gsq" firstAttribute="leading" secondItem="HeJ-n3-OhN" secondAttribute="trailing" constant="26" id="Ho9-Bm-k13"/>
                             <constraint firstItem="dEL-43-Gsz" firstAttribute="top" secondItem="tKr-zY-Ej1" secondAttribute="bottom" constant="11" id="IQD-3F-hZM"/>
                             <constraint firstItem="6Ih-6g-BQ6" firstAttribute="top" secondItem="ppT-3H-kvn" secondAttribute="bottom" constant="93" id="IkH-yB-NNA"/>
-                            <constraint firstAttribute="bottom" secondItem="6Ih-6g-BQ6" secondAttribute="bottom" constant="45" id="JlD-Xk-221"/>
+                            <constraint firstAttribute="bottom" secondItem="6Ih-6g-BQ6" secondAttribute="bottom" constant="15" id="JlD-Xk-221"/>
                             <constraint firstItem="gpi-Qb-Zbq" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="12" id="LNa-Tq-Vdy"/>
                             <constraint firstItem="dEL-43-Gsz" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="546" id="LlA-E0-Uyg"/>
                             <constraint firstItem="ppT-3H-kvn" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="380" id="OTf-9v-Hkm"/>
@@ -883,6 +907,10 @@
                             <constraint firstItem="ZpX-Le-pUB" firstAttribute="top" secondItem="N8c-ZY-sMm" secondAttribute="bottom" constant="18" id="RZU-e4-pWl"/>
                             <constraint firstItem="N8c-ZY-sMm" firstAttribute="top" secondItem="dEL-43-Gsz" secondAttribute="bottom" constant="-20" id="Vds-NK-yMV"/>
                             <constraint firstItem="N8c-ZY-sMm" firstAttribute="leading" secondItem="ZpX-Le-pUB" secondAttribute="leading" id="Vsr-0h-hoZ"/>
+                            <constraint firstItem="WB-Lb-8Mn" firstAttribute="baseline" secondItem="WB-Sl-8Mn" secondAttribute="baseline" id="WB-Lb-Base"/>
+                            <constraint firstItem="WB-Lb-8Mn" firstAttribute="leading" secondItem="5wI-xc-gsq" secondAttribute="leading" id="WB-Lb-Lead"/>
+                            <constraint firstItem="WB-Sl-8Mn" firstAttribute="leading" secondItem="HeJ-n3-OhN" secondAttribute="leading" id="WB-Sl-Lead"/>
+                            <constraint firstItem="WB-Sl-8Mn" firstAttribute="top" secondItem="HeJ-n3-OhN" secondAttribute="bottom" constant="6" id="WB-Sl-Top"/>
                             <constraint firstItem="ZpX-Le-pUB" firstAttribute="baseline" secondItem="HeJ-n3-OhN" secondAttribute="baseline" constant="-35" id="WOG-Zk-HcX"/>
                             <constraint firstAttribute="trailing" secondItem="jME-Ec-Bfa" secondAttribute="trailing" constant="955" id="bmN-H1-9un"/>
                             <constraint firstItem="beK-a3-sUD" firstAttribute="leading" secondItem="6Ih-6g-BQ6" secondAttribute="leading" constant="1260" id="cSf-C1-XXz"/>
@@ -909,6 +937,8 @@
                         <outlet property="sourceItemView" destination="jME-Ec-Bfa" id="qbZ-fq-0Sh"/>
                         <outlet property="statusTextView" destination="VjW-m7-Q2p" id="QCR-wB-zW2"/>
                         <outlet property="toggleEncodingButton" destination="ppT-3H-kvn" id="dFu-85-UQx"/>
+                        <outlet property="whiteBalanceLabel" destination="WB-Lb-8Mn" id="WB-Lb-Out"/>
+                        <outlet property="whiteBalanceSlider" destination="WB-Sl-8Mn" id="WB-Sl-Out"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

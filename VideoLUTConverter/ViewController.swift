@@ -12,6 +12,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var abortButton: NSButton!
     @IBOutlet weak var secondLUTOpacitySlider: NSSlider!
     @IBOutlet weak var opacityLabel: NSTextField!
+    @IBOutlet weak var whiteBalanceSlider: NSSlider!
+    @IBOutlet weak var whiteBalanceLabel: NSTextField!
     @IBOutlet weak var previewImageView: NSImageView!
     @IBOutlet weak var progressIndicator: NSProgressIndicator! // Individual file progress indicator
     @IBOutlet weak var overallProgressIndicator: NSProgressIndicator! // Overall progress indicator
@@ -22,6 +24,7 @@ class ViewController: NSViewController {
     var exportDirectoryURL: URL?
     var useGPU = true
     var secondLUTOpacity: Float = 1.0 // Default to full opacity
+    var whiteBalanceValue: Float = 0.0 // Default to neutral (5500K), range -10 to +10
     var ffmpegProcess: Process?
     var previewProcess: Process?
     var totalFrames: Int = 0 // To store the total frame count for each video
@@ -43,6 +46,10 @@ class ViewController: NSViewController {
         // Initialize opacity label and slider
         opacityLabel.stringValue = "Opacity: \(Int(secondLUTOpacity * 100))%"
         secondLUTOpacitySlider.floatValue = secondLUTOpacity
+        
+        // Initialize white balance label and slider
+        whiteBalanceLabel.stringValue = "White Balance: \(formatTemperature(whiteBalanceValue))K"
+        whiteBalanceSlider.floatValue = whiteBalanceValue
         
         // Initialize progress indicators
         progressIndicator.minValue = 0
@@ -66,6 +73,14 @@ class ViewController: NSViewController {
     
     func stripANSIColors(from text: String) -> String {
         return StringUtilities.stripANSIColors(from: text)
+    }
+    
+    func formatTemperature(_ value: Float) -> Int {
+        // Convert slider value (-10 to +10) to temperature (2400K to 8000K)
+        // 0 = 5500K, -10 = 2400K, +10 = 8000K
+        let baseTemp = 5500
+        let tempChange = Int(value * 280) // 280K per step to cover the range
+        return baseTemp + tempChange
     }
     
     func logMessage(_ message: String) {
@@ -143,6 +158,14 @@ class ViewController: NSViewController {
         updatePreview() // Update preview after opacity adjustment
     }
     
+    @IBAction func whiteBalanceChanged(_ sender: NSSlider) {
+        whiteBalanceValue = sender.floatValue
+        let temperature = formatTemperature(whiteBalanceValue)
+        whiteBalanceLabel.stringValue = "White Balance: \(temperature)K"
+        logMessage("Adjusted white balance to \(temperature)K")
+        updatePreview() // Update preview after white balance adjustment
+    }
+    
     func updatePreview() {
         guard let videoURL = videoURLs.first else { return }
         generatePreviewImage(videoURL: videoURL)
@@ -181,7 +204,8 @@ class ViewController: NSViewController {
             let filterResult = FilterBuilder.buildPreviewFilter(
                 primaryLUTPath: self.primaryLUTURL?.path,
                 secondaryLUTPath: self.secondaryLUTURL?.path,
-                opacity: self.secondLUTOpacity
+                opacity: self.secondLUTOpacity,
+                whiteBalance: self.whiteBalanceValue
             )
             
             arguments += filterResult.arguments
@@ -402,6 +426,7 @@ class ViewController: NSViewController {
             primaryLUTPath: primaryLUTURL.path,
             secondaryLUTPath: secondaryLUTURL?.path,
             opacity: self.secondLUTOpacity,
+            whiteBalance: self.whiteBalanceValue,
             pixelFormat: pixelFormat
         )
         

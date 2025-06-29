@@ -152,12 +152,14 @@ extension ProcessManager {
                             primaryLUTPath: String?,
                             secondaryLUTPath: String?,
                             opacity: Float,
+                            whiteBalance: Float,
                             completion: @escaping (Bool) -> Void) {
         
         let filterResult = FilterBuilder.buildPreviewFilter(
             primaryLUTPath: primaryLUTPath,
             secondaryLUTPath: secondaryLUTPath,
-            opacity: opacity
+            opacity: opacity,
+            whiteBalance: whiteBalance
         )
         
         var arguments = ["-y", "-i", videoURL.path]
@@ -174,6 +176,7 @@ extension ProcessManager {
                    primaryLUTPath: String,
                    secondaryLUTPath: String?,
                    opacity: Float,
+                   whiteBalance: Float,
                    useGPU: Bool,
                    completion: @escaping (Bool) -> Void) {
         
@@ -190,6 +193,7 @@ extension ProcessManager {
             primaryLUTPath: primaryLUTPath,
             secondaryLUTPath: secondaryLUTPath,
             opacity: opacity,
+            whiteBalance: whiteBalance,
             pixelFormat: pixelFormat
         )
         
