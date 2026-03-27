@@ -1,0 +1,11 @@
+# Large test files and build artifacts
+lutconvertertest/
+build.log
+VideoLUTConverter.app/
+*.MP4
+*.mp4
+*.mov
+.DS_Store
+
+# FFmpeg binary now tracked with Git LFS
+# VideoLUTConverter/Resources/ffmpeg 
